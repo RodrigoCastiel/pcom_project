@@ -1,4 +1,4 @@
-function output_waveform = manchester_code( input_code )
+function output_code = manchester_code( input_code )
 %MANCHESTER_CODE Generates the output of Manchester code from 'input_code'.
 %   0 -> -_
 %   1 -> _-
@@ -9,7 +9,7 @@ function output_waveform = manchester_code( input_code )
 %   (Manchester IEEE 802.3)
 
     % Generate clock signal by alternating 0s and 1s.
-    L = length(input_code);
+    L = numel(input_code);
     clock = [zeros(1, L); ones(1, L)];
     clock = clock(:)';
     
@@ -21,6 +21,5 @@ function output_waveform = manchester_code( input_code )
     
     % XOR operation between input code and clock.
     output_code = (output_code == clock);  
-    output_waveform = output_code;
 end
 
