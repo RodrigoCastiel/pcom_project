@@ -1,5 +1,6 @@
 function plot_manchester_code( bin_code, bit_rate, vp )
-%PLOT_CODE Plots a binary waveform.
+%PLOT_CODE Plots waveform of manchester code.
+%   plot_manchester_code( bin_code, bit_rate, vp )
 %   bin_code -> manchester code generated from a PCM signal.
 %   bit_rate -> bit rate of the original PCM signal.
 %   vp       -> peak tension of the signal.

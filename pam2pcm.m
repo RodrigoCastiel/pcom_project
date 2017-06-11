@@ -1,5 +1,6 @@
 function [output_pcm_code, k] = pam2pcm( input_sequence, M )
 %PCM_ENCODER Converts a M-PAM signal (sequence) into a PCM.
+%   [output_pcm_code, k] = pam2pcm( input_sequence, M )
 %   input_sequence              -> row vector containing L samples. 
 %   M [2^8, 2^16, 2^32 or 2^64] -> quantization.
 %   output_pcm_code -> output sequence containing L x log2(M) samples.

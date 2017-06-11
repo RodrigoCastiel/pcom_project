@@ -1,5 +1,6 @@
 function [ pam_signal, M ] = pcm2pam( pcm_code, k )
 %PCM_ENCODER Converts a k-PCM sequence into a M-PAM signal (sequence).
+%   [ pam_signal, M ] = pcm2pam( pcm_code, k )
 %   pcm_code -> row vector containing L samples. 
 %   k        -> number of bits per symbol.
 %
