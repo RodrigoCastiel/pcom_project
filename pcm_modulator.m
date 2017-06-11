@@ -19,7 +19,7 @@ function waveform = pcm_modulator( m_code, vp, nb )
     nb = nb/2;
 
     L = numel(m_code);
-    n = nb/4;
+    n = nb;%/4;
 
     % Initial supersampling.
     waveform = zeros(1, n*L);
@@ -32,8 +32,8 @@ function waveform = pcm_modulator( m_code, vp, nb )
         end
     end
     
-    % Interpolate values to increase sampling.
-    N = nb * L;
-    waveform = interp1(1:4:N, waveform, 1:N);
+    % Simulate a non-perfect waveform generator (by smoothing the edges).
+    h = ones(1, 8)/8;
+    waveform = conv(waveform, h, 'same');
 end
 
