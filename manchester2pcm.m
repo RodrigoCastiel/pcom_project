@@ -5,7 +5,7 @@ function pcm_code = manchester2pcm( manchester_code )
 %   0 -_   1 _-
 %   Authors: Rodrigo Castiel <rcrs2@cin.ufpe.br>
 %            Geovanny Lucas  <gllp@cin.ufpe.br>           
-%   Date:    June 10, 2017.
+%   Date:    June 11, 2017.
 %   Reference: https://en.wikipedia.org/wiki/Manchester_code
 
     % Generate clock signal by alternating 0s and 1s.
