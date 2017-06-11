@@ -1,4 +1,4 @@
-+--------------------------------------------------------------------------------------------------+
+﻿+--------------------------------------------------------------------------------------------------+
 |                                                                                                  |
 |                            Projeto de Princípios de Comunicação 2017.1                           |
 |                                Centro de Informática (CIn), UFPE.                                |
@@ -26,7 +26,7 @@ Sinal Analógico ou Digital a ser transmitido
 
 1. M-PAM to PCM (done)
 2. a. PCM to Manchester code (done)
-   b. PCM to Differential Manchester code (todo: Fada)
+   b. PCM to Differential Manchester code (done?)
 3. Manchester code to Waveform (modulator) (done)
 4. Waveform Demodulator to Manchester code (todo)
 5. a. Manchester to PCM (todo)
