@@ -1,16 +1,20 @@
-function plot_manchester_code( bin_code, freq_sampling, peak_amplitude )
+function plot_manchester_code( bin_code, bit_rate, vp )
 %PLOT_CODE Plots a binary waveform.
+%   bin_code -> manchester code generated from a PCM signal.
+%   bit_rate -> bit rate of the original PCM signal.
+%   vp       -> peak tension of the signal.
+%
 %   Authors: Rodrigo Castiel <rcrs2@cin.ufpe.br>
 %            Geovanny Lucas  <gllp@cin.ufpe.br>           
 %   Date:    June 10, 2017.
 
-    Ts = (1.0/freq_sampling); % Sampling period. 
+    Ts = (1.0/bit_rate);      % Sampling period. 
     Tc = Ts/2.0;              % Clock period.
 
     % v are the key points in the waveform.
     v = [bin_code; bin_code];
     v = v(:)';
-    v = 2*v*peak_amplitude - peak_amplitude;
+    v = 2*v*vp - vp;
     
     % Generate vector with time values.
     % > t = [0 Tc Tc 2Tc 2Tc ... LTc]
@@ -25,12 +29,12 @@ function plot_manchester_code( bin_code, freq_sampling, peak_amplitude )
     xlabel('Time (s)');
     set(p,'LineWidth', 2.5);
     grid on;
-    axis([0.0 t(end) -2*peak_amplitude +2*peak_amplitude]);
+    axis([0.0 t(end) -2*vp +2*vp]);
     
-    % Plot vertical lines sampled at freq_sampling.
+    % Plot vertical lines sampled at bit rate.
     hold on;
     for ts = 0:numel(bin_code)/2
-        plot(Ts*[ts, ts], peak_amplitude*[1.5, -1.5], '--b');
+        plot(Ts*[ts, ts], vp*[1.5, -1.5], '--b');
     end
     hold off;
     
