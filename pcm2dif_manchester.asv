@@ -45,7 +45,7 @@ function [output_code] = pcm2dif_manchester( pcm_code )
         end
         
     end
-    %We now transform the output_code in a logical array
+    
     output_code = logical(output_code);
 end
 

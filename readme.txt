@@ -26,9 +26,9 @@ Sinal Analógico ou Digital a ser transmitido
 
 1. M-PAM to PCM (done)
 2. a. PCM to Manchester code (done)
-   b. PCM to Differential Manchester code (done?)
+   b. PCM to Differential Manchester code (done)
 3. Manchester code to Waveform (modulator) (done)
 4. Waveform Demodulator to Manchester code (todo)
 5. a. Manchester to PCM (todo)
-   b. Manchester Differential to PCM (todo: Fada)
+   b. Manchester Differential to PCM (done)
 6. PCM to M-PAM (todo)
