@@ -39,8 +39,8 @@ function [ out8bit, snr, err_pcm ] = exp_manchester( in8bit, noise, vp, nb )
     snr = sum(waveform_in.^2)/sum(noise.^2);
     
     % subplot(2, 1, 1);
-    % plot_waveform(waveform_in, Rb, Fs); title('Sent waveform');
+    % plot_waveform(waveform_in, 8, 8*nb); title('Sent waveform');
     % subplot(2, 1, 2);
-    % plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
+    % plot_waveform(waveform_out, 8, 8*nb); title('Received waveform');
 end
 

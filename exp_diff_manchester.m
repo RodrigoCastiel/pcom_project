@@ -19,7 +19,7 @@ function [ out8bit, snr, err_pcm ] = exp_diff_manchester( in8bit, noise, vp, nb 
     
     % Send signal.
     pcm_in = pam2pcm(in8bit, M);
-    waveform_in = pcm_modulator(pcm2manchester(pcm_in), vp, nb);
+    waveform_in = pcm_modulator(pcm2dif_manchester(pcm_in), vp, nb);
     
     %----------------------------------------
     % Channel: add noise and Rayleigh fading.
@@ -29,7 +29,7 @@ function [ out8bit, snr, err_pcm ] = exp_diff_manchester( in8bit, noise, vp, nb 
     %----------------------------------------
 
     % Output PCM.
-    pcm_out = manchester_demodulator(waveform_out, vp, nb);
+    pcm_out = dif_manchester_demodulator(waveform_out, vp, nb);
     out8bit = pcm2pam(pcm_out, k);
     
     % PCM error.
@@ -38,9 +38,9 @@ function [ out8bit, snr, err_pcm ] = exp_diff_manchester( in8bit, noise, vp, nb 
     % SNR.
     snr = sum(waveform_in.^2)/sum(noise.^2);
     
-    % subplot(2, 1, 1);
-    % plot_waveform(waveform_in, Rb, Fs); title('Sent waveform');
-    % subplot(2, 1, 2);
-    % plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
+%     subplot(2, 1, 1);
+%     plot_waveform(waveform_in, 8, 8*nb); title('Sent waveform');
+%     subplot(2, 1, 2);
+%     plot_waveform(waveform_out, 8, 8*nb); title('Received waveform');
 end
 

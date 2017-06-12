@@ -21,8 +21,8 @@ Rb = k * Rs;   % Bit rate of PCM.
 Fs = Rb * nb;  % Frequency of sampling in waveform.
 
 % Sent waveform.
-subplot(2, 1, 1);
-plot_waveform(waveform_in, Rb, Fs); title('Sent waveform');
+% subplot(2, 1, 1);
+% plot_waveform(waveform_in, Rb, Fs); title('Sent waveform');
 
 %---------------------------
 % Channel: add noise.
@@ -34,8 +34,8 @@ noise = randn(size(waveform_in)) * noise_std;
 
 % Received waveform.
 waveform_out = waveform_in + noise;
-subplot(2, 1, 2);
-plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
+% subplot(2, 1, 2);
+% plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
 % 
 % subplot(2, 1, 2);
 % plot_waveform(abs(waveform_out), Rb, Fs); title('Received waveform');
