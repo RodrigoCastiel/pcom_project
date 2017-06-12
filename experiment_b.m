@@ -14,7 +14,7 @@ pam_in = [3, 14, 15, 92, 65, 35, 89, 79, 32, 38, 46, 26]; % Input signal.
 
 % Send signal.
 pcm_in = pam2pcm(pam_in, M);
-waveform_in = pcm_modulator(pcm2manchester(pcm_in), vp, nb);
+waveform_in = pcm_modulator(pcm2dif_manchester(pcm_in), vp, nb);
 Rb = k * Rs;   % Bit rate of PCM.
 Fs = Rb * nb;  % Frequency of sampling in waveform.
 
@@ -26,17 +26,17 @@ plot_waveform(waveform_in, Rb, Fs); title('Sent waveform');
 % Channel: add noise.
 
 % Simulate additive white gaussian noise.
-%noise = randn(size(waveform_in)) * noise_std;
-waveform_out = rayleigh_channel(10,9,4,waveform_in);
+noise = randn(size(waveform_in)) * noise_std;
+
 %---------------------------
 
 % Received waveform.
-%waveform_out = waveform_in + noise;
+waveform_out = waveform_in + noise;
 subplot(2, 1, 2);
-plot_waveform(abs(waveform_out), Rb, Fs); title('Received waveform');
+plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
 
 % Output PCM.
-pcm_out = manchester_demodulator(waveform_out, vp, nb);
+pcm_out = dif_manchester_demodulator(waveform_out, vp, nb);
 pam_out = pcm2pam(pcm_out, k);
 
 %figure;
