@@ -33,7 +33,8 @@ function waveform = pcm_modulator( m_code, vp, nb )
     end
     
     % Simulate a non-perfect waveform generator (by smoothing the edges).
-    h = ones(1, 8)/8;
+    h_len = (nb/8);
+    h = ones(1, h_len)/h_len;
     waveform = conv(waveform, h, 'same');
 end
 
