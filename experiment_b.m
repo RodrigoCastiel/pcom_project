@@ -6,11 +6,12 @@ M = 2^k;   % 256-PAM.
 Rs = 1;    % Symbol rate of M-PAM.
 vp = 5.0;  % Peak tension in volts.
 nb = 64;   % Oversampling rate (per PCM bit).
-noise_std = vp;
+noise_std = 0.0;
 
 pam_in = [3, 14, 15, 92, 65, 35, 89, 79, 32, 38, 46, 26]; % Input signal.
 % pam_in = 50*cos(0:0.11:6*3.141592) + 60;
-% pam_in = uint8(pam_in);
+
+pam_in = uint8(pam_in);
 
 % Send signal.
 pcm_in = pam2pcm(pam_in, M);
@@ -45,5 +46,8 @@ pam_out = pcm2pam(pcm_out, k);
 % hold off;
 
 % Error.
-epsilon = sum(pcm_in ~= pcm_out)/numel(pcm_in)
+epsilon = sum(pcm_in ~= pcm_out)/numel(pcm_in);
+
+[out8bit, snr, err_pcm] = exp_diff_manchester(pam_in, noise, vp, nb);
+err_pcm
 
