@@ -13,15 +13,15 @@ function [output_pcm_code, k] = pam2pcm( input_sequence, M )
     k = uint32(ceil(log2(M)));  % k >= log2(M).
 
     % Force input to be M-PAM. 
-    if (k == 8)
-        m_pam = uint8(m_pam);
-    elseif (k == 16)
-        m_pam = uint16(m_pam);
-    elseif (k == 32)
-        m_pam = uint32(m_pam);
-    else
-        m_pam = uint64(m_pam);
-    end;
+%     if (k == 8)
+%         m_pam = uint8(m_pam);
+%     elseif (k == 16)
+%         m_pam = uint16(m_pam);
+%     elseif (k == 32)
+%         m_pam = uint32(m_pam);
+%     else
+%         m_pam = uint64(m_pam);
+%     end;
 
     L = numel(m_pam);
     output_pcm_code = [];%zeros(1, k*L, 'uint8');
