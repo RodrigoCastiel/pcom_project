@@ -41,19 +41,9 @@ plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
 subplot(3, 1, 3);
 plot_waveform(waveform_out_est, Rb, Fs); title('Waveform Estimate');
 
-% 
-% subplot(2, 1, 2);
-% plot_waveform(abs(waveform_out), Rb, Fs); title('Received waveform');
-% print('imgs/SampleManchester_noise=vp','-dpng','-r0');
-
 % Output PCM.
 pcm_out = manchester_demodulator(waveform_out_est, vp, nb);
 pam_out = pcm2pam(pcm_out, k);
-
-%figure;
-% hold on; 
-% plot(pam_in, '-b'); plot(pam_out, '-r');
-% hold off;
 
 % Error.
 epsilon = sum(pcm_in ~= pcm_out)/numel(pcm_in)
