@@ -6,10 +6,11 @@ M = 2^k;   % 256-PAM.
 Rs = 1;    % Symbol rate of M-PAM.
 vp = 5.0;  % Peak tension in volts.
 nb = 64;   % Oversampling rate (per PCM bit).
-noise_std = 0.0;
+noise_std = 0.1*vp;
 
-pam_in = [3, 14, 15, 92, 65, 35, 89, 79, 32, 38, 46, 26]; % Input signal.
-% pam_in = 50*cos(0:0.11:6*3.141592) + 60;
+pam_in = [3, 14, 15]; %, 92, 65, 35, 89, 79, 32, 38, 46, 26]; % Input signal.
+%pam_in = 50*cos(0:0.01:6*3.141592) + 60;
+% pam_in = uint8(pam_in);
 
 pam_in = uint8(pam_in);
 
@@ -20,24 +21,28 @@ Rb = k * Rs;   % Bit rate of PCM.
 Fs = Rb * nb;  % Frequency of sampling in waveform.
 
 % Sent waveform.
-subplot(2, 1, 1);
+subplot(3, 1, 1);
 plot_waveform(waveform_in, Rb, Fs); title('Sent waveform');
 
 %---------------------------
-% Channel: add noise.
-
-% Simulate additive white gaussian noise.
+% Channel: AWGN and Rayleigh.
+R = sqrt(-2.0*log(rand(size(waveform_in))));
 noise = randn(size(waveform_in)) * noise_std;
+
+waveform_out = R.*waveform_in + noise;
+waveform_out_est = real(waveform_out ./ R);
 
 %---------------------------
 
 % Received waveform.
-waveform_out = waveform_in + noise;
-subplot(2, 1, 2);
+subplot(3, 1, 2);
 plot_waveform(waveform_out, Rb, Fs); title('Received waveform');
+% Waveform estimate.
+subplot(3, 1, 3);
+plot_waveform(waveform_out_est, Rb, Fs); title('Waveform Estimate');
 
 % Output PCM.
-pcm_out = dif_manchester_demodulator(waveform_out, vp, nb);
+pcm_out = dif_manchester_demodulator(waveform_out_est, vp, nb);
 pam_out = pcm2pam(pcm_out, k);
 
 %figure;
@@ -46,8 +51,4 @@ pam_out = pcm2pam(pcm_out, k);
 % hold off;
 
 % Error.
-epsilon = sum(pcm_in ~= pcm_out)/numel(pcm_in);
-
-[out8bit, snr, err_pcm] = exp_diff_manchester(pam_in, noise, vp, nb);
-err_pcm
-
+epsilon = sum(pcm_in ~= pcm_out)/numel(pcm_in)

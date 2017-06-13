@@ -1,4 +1,4 @@
-function [ out8bit, snr, err_pcm ] = exp_manchester( in8bit, noise, vp, nb )
+function [ out8bit, snr, err_pcm ] = exp_manchester( in8bit, noise, vp, nb, R )
 %EXP_MANCHASTER: 256-PAM -> PCM -> Manchester Mod -> Channel ->
 %                        -> Manchester Demod -> PCM -> 256-PAM.
 %   INPUT -----------------------------------------------------
@@ -6,6 +6,7 @@ function [ out8bit, snr, err_pcm ] = exp_manchester( in8bit, noise, vp, nb )
 %   noise  -> AWGN: must be k*L*nb long.
 %   vp     -> peak tension in volts.
 %   nb     -> number of samples per PCM bit in receiver.
+%   R      -> optional k*L*nb long. Rayleigh fading vector.
 %   OUTPUT ----------------------------------------------------
 %   out8bit -> 1D uint8-array of size L.
 %   snr     -> signal-to-noise ratio of the received waveform.
@@ -22,10 +23,13 @@ function [ out8bit, snr, err_pcm ] = exp_manchester( in8bit, noise, vp, nb )
     waveform_in = pcm_modulator(pcm2manchester(pcm_in), vp, nb);
     
     %----------------------------------------
-    % Channel: add noise and Rayleigh fading.
-    
-    waveform_out = waveform_in + noise;
-    
+    % Channel: add noise [and Rayleigh fading].
+    if nargin == 5
+        waveform_out = R.*waveform_in + noise;
+        waveform_out = real(waveform_out ./ R);
+    else
+        waveform_out = waveform_in + noise;
+    end
     %----------------------------------------
 
     % Output PCM.
